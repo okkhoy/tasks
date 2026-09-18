@@ -10,16 +10,22 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Task manager (using streams)");
-        Datamanager dataManager = new Datamanager("./data/data.txt");
+        Datamanager dataManager = new Datamanager("./data/data.txt"); //relative path
+        // c:\\users\\dcsaksh\\Desktop\\ip\\data\\data.txt  <<<< absolute path
+        // /home/Users/dcsaksh/work/ip/data/data.txt <<<< absolute path
         ArrayList<Task> tasksData = dataManager.loadData();
 
-        System.out.println("Printing all data ...");
-        printAllData(tasksData);
+//        System.out.println("Printing all data ...");
+//        printAllData(tasksData);
+//        printAllDataUsingStreams(tasksData);
 
         System.out.println("Printing deadlines ...");
         printDeadlines(tasksData);
+        printDeadlinesUsingStreams(tasksData);
 
         System.out.println("Total number of deadlines: " + countDeadlines(tasksData));
+        System.out.println("Total number of deadlines: (using streams) "
+                + countDeadlinesUsingStream(tasksData));
 
     }
 
@@ -33,7 +39,16 @@ public class Main {
         return count;
     }
 
+    private static int countDeadlinesUsingStream(ArrayList<Task> tasks) {
+        int count = (int) tasks.stream()
+                .filter(t -> t instanceof Deadline)
+                .count();
+
+        return count;
+    }
+
     public static void printAllData(ArrayList<Task> tasksData) {
+        System.out.println("Using iteration ...");
         for (Task t : tasksData) {
             System.out.println(t);
         }
