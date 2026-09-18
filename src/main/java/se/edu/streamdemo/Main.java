@@ -47,4 +47,16 @@ public class Main {
         }
     }
 
+    public static void printDeadlinesUsingStreams(ArrayList<Task> tasks) {
+        System.out.println("Using parallel stream ...");
+        tasks.parallelStream()
+                .filter(t -> t instanceof Deadline)
+                .forEach(System.out::println);
+
+        System.out.println("Using stream ...");
+        tasks.stream()
+                .filter(t -> t instanceof Deadline)
+                .forEach(System.out::println);
+    }
+
 }
